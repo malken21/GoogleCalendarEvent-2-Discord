@@ -32,6 +32,6 @@ function getEventsSinceLastRun() {
     events.forEach(event => {
         Logger.log(`Title: ${event.getTitle()}`);
         sendDiscordWebhook(event);
-        Utilities.sleep(5000);
+        Utilities.sleep(3000);
     });
 }
