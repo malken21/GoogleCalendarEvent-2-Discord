@@ -17,13 +17,21 @@ function getEventsSinceLastRun() {
     // 現在時刻を取得
     const now = new Date();
 
-    const calendar = CalendarApp.getCalendarById(CALENDAR_ID);
-    // 指定期間のイベントを取得
-    calendar.getEvents(startTime, now).forEach(event => {
-        Logger.log(`Title: ${event.getTitle()}`);
-        sendDiscordWebhook(event);
-    });
-
     // 現在時刻をスクリプトプロパティに保存
     scriptProperties.setProperty('lastRunTime', now.toISOString());
+
+    const calendar = CalendarApp.getCalendarById(CALENDAR_ID);
+    // 指定期間のイベントを取得
+    const events = calendar.getEvents(startTime, now);
+    // 開始日時で古い順にソート
+    events.sort((a, b) => {
+        return a.getStartTime().getTime() - b.getStartTime().getTime();
+    });
+
+    // 取得したイベントの情報を Discord に出力
+    events.forEach(event => {
+        Logger.log(`Title: ${event.getTitle()}`);
+        sendDiscordWebhook(event);
+        Utilities.sleep(5000);
+    });
 }
