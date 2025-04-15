@@ -26,5 +26,4 @@ function getEventsSinceLastRun() {
 
     // 現在時刻をスクリプトプロパティに保存
     scriptProperties.setProperty('lastRunTime', now.toISOString());
-    Logger.log('次回の実行のために現在時刻を保存しました。');
 }
