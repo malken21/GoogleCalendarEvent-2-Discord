@@ -6,3 +6,7 @@ function sendDiscordWebhook(event) {
     };
     UrlFetchApp.fetch(DISCORD_WEBHOOK_URL, options);
 }
+
+function addOneSecond(date) {
+    return new Date(date.getTime() + 1000);
+}
